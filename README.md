@@ -1,5 +1,7 @@
-python-call-inspector
-=====================
+python_inspector
+================
+
+<a href='https://travis-ci.org/sebdah/python_inspector'><img src='https://secure.travis-ci.org/sebdah/python_inspector.png?branch=master'></a>
 
 This module helps you to track down which Python method that called your method.
 It can be helpful when debugging code in some situations. All you need to do
