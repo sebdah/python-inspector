@@ -66,7 +66,7 @@ will look like this:
 The `inspector` module is really simple and does only contain one function, 
 `trace`.
 
-### `trace`
+### Function `trace`
 
 The `trace` function takes the following parameters:
 
