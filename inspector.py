@@ -3,9 +3,10 @@ Python inspector used to simply find out which Python method and line that
 called 'your' method.
 """
 
+import os
 import inspect
 
-def trace(depth=0, one_line_response=False):
+def trace(depth=0, one_line_response=False, basename_only=False):
     """
     Trace the current method call and return an array of log lines
 
@@ -14,6 +15,8 @@ def trace(depth=0, one_line_response=False):
         Set to 0 to get all
     one_line_response::
         Write the response log lines on one row
+    basename_only::
+        If this is True, then only return the filename, not the path
     """
     data = []
     inspector = inspect.getouterframes(inspect.currentframe())
@@ -28,6 +31,11 @@ def trace(depth=0, one_line_response=False):
         # _ number 1 is the frame
         # _ number 2 is the index
         _, filename, line_no, function_name, lines, _ = inspector[i]
+
+        # Only print the filename
+        if basename_only:
+            filename = os.path.basename(filename)
+
         if one_line_response:
             log = '%(filename)s:%(line_no)i in method %(function_name)s: ' % {
                 'filename': filename,

@@ -73,11 +73,17 @@ The `trace` function takes the following parameters:
 #### Input parameters
 
 ***depth*** (default: `0`)
+
 How many calls back do you want to dump? `0` will return all calls.
 
 ***one_line_response*** (default: `False`)
+
 By default the `trace` will return multiple lines. You can turn that behavior
 off by setting this to `True`.
+
+***basename_only*** (default: `False`)
+
+If this is `True`, then only return the filename, not the path
 
 #### Return data
 
