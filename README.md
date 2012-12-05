@@ -6,6 +6,8 @@ It can be helpful when debugging code in some situations. All you need to do
 is to import the module to your project and call `inspector.trace()` (and 
 catch the output rows).
 
+## Example usage
+
 Here's a simple example usage of the `inspector`
 
 	#!/usr/bin/env python
