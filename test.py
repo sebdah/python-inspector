@@ -49,12 +49,13 @@ class InspectorTest(unittest.TestCase):
         expected = """\
 test.py:26 in method func1
 \treturn func2(*args, **kwargs)test.py:32 in method do_inspect
-\treturn func1(*args, **kwargs)test.py:57 in method test_full_trace
-\t(''.join(do_inspect()[:3])).strip(),
+\treturn func1(*args, **kwargs)test.py:55 in method test_full_trace
+\toutput = do_inspect(basename_only=True)[:3]
 """
+        output = do_inspect(basename_only=True)[:3]
 
         self.assertEqual(
-            (''.join(do_inspect()[:3])).strip(),
+            (''.join(output)).strip(),
             expected.strip())
 
     def test_trace_with_depth(self):
@@ -65,9 +66,10 @@ test.py:26 in method func1
 test.py:26 in method func1
 \treturn func2(*args, **kwargs)
 """
+        output = do_inspect(depth=1, basename_only=True)[:3]
 
         self.assertEqual(
-            (''.join(do_inspect(depth=1)[:3])).strip(),
+            (''.join(output)).strip(),
             expected.strip())
 
     def test_trace_with_one_line_log(self):
@@ -77,9 +79,10 @@ test.py:26 in method func1
         expected = """\
 test.py:26 in method func1: \treturn func2(*args, **kwargs)
 """
-
+        output = do_inspect(
+            depth=1, one_line_response=True, basename_only=True)[:3]
         self.assertEqual(
-            (''.join(do_inspect(depth=1, one_line_response=True)[:3])).strip(),
+            (''.join(output)).strip(),
             expected.strip())
 
 if __name__ == '__main__':
