@@ -13,17 +13,23 @@ import inspector
 #
 ########################################################
 
-def func2():
-	insp = inspector.Inspector()
-	return insp.inspect()
+def func2(*args, **kwargs):
+    """
+    Example method
+    """
+    return inspector.trace(*args, **kwargs)
 
-def func1():
-	return func2()
+def func1(*args, **kwargs):
+    """
+    Example method
+    """
+    return func2(*args, **kwargs)
 
-def do_inspect():
-	"""
-	"""
-	return func1()
+def do_inspect(*args, **kwargs):
+    """
+    Call this function to test
+    """
+    return func1(*args, **kwargs)
 
 ########################################################
 #
@@ -33,25 +39,52 @@ def do_inspect():
 
 
 class InspectorTest(unittest.TestCase):
-	"""
-	Unit tests for the Inspector
-	"""
-	def testFullInspection(self):
-		"""
-		Test a simple full inspection
-		"""
-		cmp = """\
-test.py:18 in method func2
-	return insp.inspect()test.py:21 in method func1
-	return func2()test.py:26 in method do_inspect
-	return func1()
+    """
+    Unit tests for the Inspector
+    """
+    def test_full_trace(self):
+        """
+        Test a simple full trace
+        """
+        expected = """\
+test.py:26 in method func1
+\treturn func2(*args, **kwargs)test.py:32 in method do_inspect
+\treturn func1(*args, **kwargs)test.py:57 in method test_full_trace
+\t(''.join(do_inspect()[:3])).strip(),
 """
 
-		self.assertEqual(
-			(''.join(do_inspect()[:3])).strip(),
-			cmp.strip())
+        self.assertEqual(
+            (''.join(do_inspect()[:3])).strip(),
+            expected.strip())
+
+    def test_trace_with_depth(self):
+        """
+        Test a simple trace with a limited depth
+        """
+        expected = """\
+test.py:26 in method func1
+\treturn func2(*args, **kwargs)
+"""
+
+        self.assertEqual(
+            (''.join(do_inspect(depth=1)[:3])).strip(),
+            expected.strip())
+
+    def test_trace_with_one_line_log(self):
+        """
+        Test a simple trace with a limited depth and one line response
+        """
+        expected = """\
+test.py:26 in method func1: \treturn func2(*args, **kwargs)
+"""
+
+        self.assertEqual(
+            (''.join(do_inspect(depth=1, one_line_response=True)[:3])).strip(),
+            expected.strip())
 
 if __name__ == '__main__':
-	suite = unittest.TestSuite()
-	suite.addTest(InspectorTest('testFullInspection'))
-	unittest.TextTestRunner(verbosity=2).run(suite)
+    SUITE = unittest.TestSuite()
+    SUITE.addTest(InspectorTest('test_full_trace'))
+    SUITE.addTest(InspectorTest('test_trace_with_depth'))
+    SUITE.addTest(InspectorTest('test_trace_with_one_line_log'))
+    unittest.TextTestRunner(verbosity=2).run(SUITE)
