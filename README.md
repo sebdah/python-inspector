@@ -8,6 +8,10 @@ It can be helpful when debugging code in some situations. All you need to do
 is to import the module to your project and call `inspector.trace()` (and 
 catch the output rows).
 
+## Requirements
+
+Python version >2.1 and <3.0
+
 ## Example usage
 
 Here's a simple example usage of the `inspector`
@@ -70,22 +74,21 @@ The `inspector` module is really simple and does only contain one function,
 
 ### Function `trace`
 
-The `trace` function takes the following parameters:
+The docstring explains this pretty well.
 
-#### Input parameters
+	Trace the current method call and return an array of log lines
 
-***depth*** (default: `0`)
+    Kwargs:
+        depth (int)::
+            How many deep do you want to dig, i.e. how many callers to show.
+            Set to 0 to get all calls. (default 0)
+        one_line_response (bool)::
+            Write the response log lines on one row (default False)
+        basename_only::
+            Return the filename without path (default False)
 
-How many calls back do you want to dump? `0` will return all calls.
-
-***one_line_response*** (default: `False`)
-
-By default the `trace` will return multiple lines. You can turn that behavior
-off by setting this to `True`.
-
-***basename_only*** (default: `False`)
-
-If this is `True`, then only return the filename, not the path
+    Returns:
+        List of strings (loglines), [str, str..]
 
 #### Return data
 

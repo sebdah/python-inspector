@@ -7,16 +7,19 @@ import os
 import inspect
 
 def trace(depth=0, one_line_response=False, basename_only=False):
-    """
-    Trace the current method call and return an array of log lines
+    """Trace the current method call and return an array of log lines
 
-    depth::
-        How many deep do you want to dig, i.e. how many callers to show
-        Set to 0 to get all
-    one_line_response::
-        Write the response log lines on one row
-    basename_only::
-        If this is True, then only return the filename, not the path
+    Kwargs:
+        depth (int)::
+            How many deep do you want to dig, i.e. how many callers to show.
+            Set to 0 to get all calls. (default 0)
+        one_line_response (bool)::
+            Write the response log lines on one row (default False)
+        basename_only::
+            Return the filename without path (default False)
+
+    Returns:
+        List of strings (loglines), [str, str..]
     """
     data = []
     inspector = inspect.getouterframes(inspect.currentframe())
