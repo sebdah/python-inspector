@@ -10,7 +10,7 @@ catch the output rows).
 
 ## Requirements
 
-Python version >2.1 and <3.0
+Python version >2.5 and <3.0
 
 ## Example usage
 
