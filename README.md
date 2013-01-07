@@ -1,4 +1,4 @@
-python_inspector
+python-inspector
 ================
 
 <a href='https://travis-ci.org/sebdah/python_inspector'><img src='https://secure.travis-ci.org/sebdah/python_inspector.png?branch=master'></a>
@@ -7,6 +7,12 @@ This module helps you to track down which Python method that called your method.
 It can be helpful when debugging code in some situations. All you need to do
 is to import the module to your project and call `inspector.trace()` (and 
 catch the output rows).
+
+## Installation
+
+The `python-inspector` is available trough `pip`, simple run
+
+    pip install python-inspector
 
 ## Requirements
 
@@ -96,6 +102,11 @@ The method returns a list of log lines (strings). I.e. `[str, str ...]`
 
 ## Release notes
 
-### 0.1 (2012-12-05)
+### 0.2.0 (2013-01-07)
+
+- Made the script available under Apache license 2.0
+- Added `python-inspector` to `pip`
+
+### 0.1.0 (2012-12-05)
 
 - Initial release
