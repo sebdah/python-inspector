@@ -5,7 +5,7 @@ Test the Inspector
 """
 
 import unittest
-from python_inspector import inspector
+import inspector
 
 ########################################################
 #
