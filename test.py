@@ -3,6 +3,8 @@
 """
 Test the Inspector
 """
+import os.path, sys
+sys.path.append(os.path.dirname(__file__))
 
 import unittest
 import inspector
@@ -47,9 +49,9 @@ class InspectorTest(unittest.TestCase):
         Test a simple full trace
         """
         expected = """\
-test.py:26 in method func1
-\treturn func2(*args, **kwargs)test.py:32 in method do_inspect
-\treturn func1(*args, **kwargs)test.py:55 in method test_full_trace
+test.py:28 in method func1
+\treturn func2(*args, **kwargs)test.py:34 in method do_inspect
+\treturn func1(*args, **kwargs)test.py:57 in method test_full_trace
 \toutput = do_inspect(basename_only=True)[:3]
 """
         output = do_inspect(basename_only=True)[:3]
@@ -63,7 +65,7 @@ test.py:26 in method func1
         Test a simple trace with a limited depth
         """
         expected = """\
-test.py:26 in method func1
+test.py:28 in method func1
 \treturn func2(*args, **kwargs)
 """
         output = do_inspect(depth=1, basename_only=True)[:3]
@@ -77,7 +79,7 @@ test.py:26 in method func1
         Test a simple trace with a limited depth and one line response
         """
         expected = """\
-test.py:26 in method func1: \treturn func2(*args, **kwargs)
+test.py:28 in method func1: \treturn func2(*args, **kwargs)
 """
         output = do_inspect(
             depth=1, one_line_response=True, basename_only=True)[:3]
