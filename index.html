@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Python-inspector by sebdah</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Python-inspector</h1>
+        <p>Used to track down which Python module and script that called your method / function. It will show you the exact Python file, line number and the actual line that made the call. The module is plug'n'playable, just import it and place a non-interfering hook in your code.</p>
+
+        <p class="view"><a href="https://github.com/sebdah/python-inspector">View the Project on GitHub <small>sebdah/python-inspector</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/sebdah/python-inspector/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/sebdah/python-inspector/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/sebdah/python-inspector">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>python-inspector</h1>
+
+<p><a href="https://travis-ci.org/sebdah/python-inspector"><img src="https://secure.travis-ci.org/sebdah/python-inspector.png?branch=master"></a></p>
+
+<p>This module helps you to track down which Python method that called your method.
+It can be helpful when debugging code in some situations. All you need to do
+is to import the module to your project and call <code>inspector.trace()</code> (and 
+catch the output rows).</p>
+
+<h2>Installation</h2>
+
+<p>The <code>python-inspector</code> is available trough <code>pip</code>, simple run</p>
+
+<pre><code>pip install python-inspector
+</code></pre>
+
+<h2>Requirements</h2>
+
+<p>Python version &gt;2.5 and &lt;3.0</p>
+
+<h2>Example usage</h2>
+
+<p>Here's a simple example usage of the <code>inspector</code></p>
+
+<pre><code>#!/usr/bin/env python
+
+"""
+Testing the Python call inspector
+"""
+import sys
+import inspector
+
+def func2():
+    """
+    Example method
+    """
+    # This is the method you want to debug
+
+    # Your code here
+
+    print 'TRACE OUTPUT:'
+    for log_row in inspector.trace():
+        print log_row
+
+    # More code
+
+    return True
+
+def func1():
+    """
+    Example method
+    """
+    return func2()
+
+def call_me():
+    """
+    Call this function to test
+    """
+    return func1()
+
+call_me()
+
+sys.exit(0)
+</code></pre>
+
+<p>In this example we debug <code>func2()</code> using the <code>inspector</code>. The output generated
+will look like this:</p>
+
+<pre><code>TRACE OUTPUT:
+t.py:29 in method func1
+    return func2()
+t.py:35 in method call_me
+    return func1()
+t.py:37 in method &lt;module&gt;
+    call_me()
+</code></pre>
+
+<h2>Documentation for <code>inspector</code>
+</h2>
+
+<p>The <code>inspector</code> module is really simple and does only contain one function, 
+<code>trace</code>.</p>
+
+<h3>Function <code>trace</code>
+</h3>
+
+<p>The docstring explains this pretty well.</p>
+
+<pre><code>Trace the current method call and return an array of log lines
+
+Kwargs:
+    depth (int)::
+        How many deep do you want to dig, i.e. how many callers to show.
+        Set to 0 to get all calls. (default 0)
+    one_line_response (bool)::
+        Write the response log lines on one row (default False)
+    basename_only::
+        Return the filename without path (default False)
+
+Returns:
+    List of strings (loglines), [str, str..]
+</code></pre>
+
+<h4>Return data</h4>
+
+<p>The method returns a list of log lines (strings). I.e. <code>[str, str ...]</code></p>
+
+<h2>Release notes</h2>
+
+<h3>0.2.0 (2013-01-07)</h3>
+
+<ul>
+<li>Made the script available under Apache license 2.0</li>
+<li>Added <code>python-inspector</code> to <code>pip</code>
+</li>
+</ul><h3>0.1.0 (2012-12-05)</h3>
+
+<ul>
+<li>Initial release</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/sebdah">sebdah</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
